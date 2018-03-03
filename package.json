@@ -1,0 +1,27 @@
+{
+  "name": "iknowaguy",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "require": "^2.4.20"
+  },
+  "description": "a social app for micgivers in an area",
+  "main": "./src/main/ui/index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "author": "Ayub Mohamoud Iman",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.3",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.10",
+    "style-loader": "^0.20.2",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-server": "^3.1.0"
+  }
+}
