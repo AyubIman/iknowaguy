@@ -17,7 +17,7 @@ public class InitializeData implements ApplicationListener<ContextRefreshedEvent
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    public InitializeData() {
+    public InitializeData( ) {
     }
 
     public InitializeData(UserRepository userRepository, VehicleRepository vehicleRepository) {
