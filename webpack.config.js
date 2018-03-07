@@ -5,7 +5,7 @@ module.exports = {
 
     context : __dirname,
     mode : 'development',
-    entry : "./src/main/ui/index.js",
+    entry : "./src/main/ui/index.jsx",
     output : {
         path : path.resolve(__dirname, "./src/main/resources/static/js/bundle/"),
         filename : "scripts.js"

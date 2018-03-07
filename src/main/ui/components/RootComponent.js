@@ -1,9 +1,15 @@
 const React = require('react');
+const Component = require('react').Component;
+const observableTodoStore = require('./stores/TodoStore');
 
-var RootComponent = {
+class RootComponent extends Component{
+
+    componentDidMount(){}
     render(){
-        return (<div key={id}>This is the root component</div>);
+        return <h2>Root component</h2>;
     }
-};
+}
 
-module.exports = RootComponent;
+var rootComponent = new RootComponent();
+
+export default rootComponent;
