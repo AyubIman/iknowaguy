@@ -3,6 +3,7 @@ package com.iknowaguy.models;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Document(collection = "User")
@@ -12,8 +13,9 @@ public class User {
     private String id;
     private String firstName;
     private String lastName;
+    private List<Vehicle> vehicles;
 
-    public User() {
+    public User(String ayub, String iman, Vehicle ford) {
     }
 
     public User(String firstName, String lastName) {
@@ -21,9 +23,10 @@ public class User {
         this.lastName = lastName;
     }
 
-    public User(String firstName, String lastName, ArrayList<Long> vehicles) {
+    public User(String firstName, String lastName, List<Vehicle> vehicles) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.vehicles = vehicles;
     }
 
     public String getId() {
@@ -48,6 +51,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     @Override

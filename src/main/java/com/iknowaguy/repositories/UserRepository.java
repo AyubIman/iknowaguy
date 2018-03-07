@@ -8,4 +8,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends MongoRepository<User,String>, QuerydslPredicateExecutor<User> {
+
 }
+/*
+Hotel findById(String id);
+    List<Hotel> findByPricePerNightLessThan(int maxPrice);
+
+    @Query(value = "{address.city:?0}")
+    List<Hotel> findByCity(String city);
+ */

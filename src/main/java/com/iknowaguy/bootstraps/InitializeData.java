@@ -9,7 +9,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -43,8 +45,10 @@ public class InitializeData implements ApplicationListener<ContextRefreshedEvent
 
         // Add 10 users and 10 Vehicles
         for(int i = 0; i <=9; i++) {
-            Vehicle ford = new Vehicle("String make", "String model", "String year", "String type");
-            User ayub = new User("Ayub", "Iman");
+            Vehicle ford = new Vehicle("ford", "fiesta", "2018", "compact");
+            List<Vehicle> vehicleList = new ArrayList<>();
+            vehicleList.add(ford);
+            User ayub = new User("Ayub", "Iman",vehicleList);
             users.add(ayub);
             vehicles.add(ford);
         }
