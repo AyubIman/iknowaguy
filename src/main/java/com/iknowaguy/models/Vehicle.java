@@ -1,17 +1,14 @@
 package com.iknowaguy.models;
 
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document(collection = "Vehicle")
 public class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String make;
     private String model;
     private String year;
@@ -27,11 +24,11 @@ public class Vehicle {
         this.type = type;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,13 +64,6 @@ public class Vehicle {
         this.type = type;
     }
 
-//    public Set<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void addUser(User user) {
-//        this.users.add(user);
-//    }
 
     @Override
     public boolean equals(Object obj) {

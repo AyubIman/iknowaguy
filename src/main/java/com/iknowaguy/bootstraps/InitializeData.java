@@ -9,6 +9,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class InitializeData implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -31,15 +34,22 @@ public class InitializeData implements ApplicationListener<ContextRefreshedEvent
     }
 
     private void initData(){
+        List<User> users = new ArrayList<>();
+        List<Vehicle> vehicles = new ArrayList<>();
+
+        //clear the test database off of old junk data
+        this.userRepository.deleteAll();
+        this.vehicleRepository.deleteAll();
 
         // Add 10 users and 10 Vehicles
         for(int i = 0; i <=9; i++) {
             Vehicle ford = new Vehicle("String make", "String model", "String year", "String type");
-            vehicleRepository.save(ford);
-            User ayub = new User("Eric", "Evans");
-            ayub.addVehicle(ford.getId());
-            userRepository.save(ayub);
+            User ayub = new User("Ayub", "Iman");
+            users.add(ayub);
+            vehicles.add(ford);
         }
+        this.userRepository.saveAll(users);
+        this.vehicleRepository.saveAll(vehicles);
 
     }
 }
