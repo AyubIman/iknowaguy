@@ -32,14 +32,12 @@ public class InitializeData implements ApplicationListener<ContextRefreshedEvent
 
     private void initData(){
 
+        // Add 10 users and 10 Vehicles
         for(int i = 0; i <=9; i++) {
-            //Ayub
             Vehicle ford = new Vehicle("String make", "String model", "String year", "String type");
             vehicleRepository.save(ford);
             User ayub = new User("Eric", "Evans");
             ayub.addVehicle(ford.getId());
-            //ford.addUser(ayub);
-
             userRepository.save(ayub);
         }
 
