@@ -1,11 +1,14 @@
 require('../resources/static/css/styles.css');
 
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Provider = require('mobx-react').Provider;
+const AppStore = require('./stores/AppStore');
 
-ReactDOM.render(
-<h1>Hello, world!</h1>,
-document.getElementById('root')
+
+const RootComponent = require('./components/RootComponent');
+
+ReactDOM.render(<div>{RootComponent}</div>, document.getElementById('root')
 );
 
 
