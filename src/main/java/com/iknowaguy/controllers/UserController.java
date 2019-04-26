@@ -3,90 +3,100 @@ package com.iknowaguy.controllers;
 
 import com.iknowaguy.models.User;
 import com.iknowaguy.repositories.UserRepository;
-import com.iknowaguy.repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
-@RequestMapping(value = "/api/users")
+@RequestMapping(value = "/api/user")
 public class UserController {
 
-    private static final String template = "Hello, %s!";
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private VehicleRepository vehicleRepository;
 
-
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = { "application/json" })
-    public @ResponseBody Iterable<User> getAllUsers() {
-        return userRepository.findAll();
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = { "application/json" })
-    public @ResponseBody
-    Optional<User> getOneUser(final @PathVariable Long id) {
-        return userRepository.findById(id);
+    // Get all the users in the database
+    @GetMapping(value = "/all")
+    public List<User> getAllUsers() {
+        List<User> users = this.userRepository.findAll();
+        return users;
     }
 
-    @RequestMapping(value = "/save")
-    public void saveOneUser() {
-        User user = new User("ayub","iman");
-        userRepository.save(user);
+    // Get a single user from the database
+    @GetMapping("/{id}")
+    public Optional<User> getUser(@PathVariable("id") String id){
+        Optional<User> user = this.userRepository.findById(id);
+        return user;
     }
 
-    private class DecoratedUser{
-        private String firstName;
-        private String lastName;
-        private Long id;
-        ArrayList<Long> vehicleIds = new ArrayList<>();
-
-        public DecoratedUser() {
-        }
-
-        public DecoratedUser(Long id, String firstName, String lastName ) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.id = id;
-        }
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-        }
-
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-        public ArrayList<Long> getVehicleIds() {
-            return vehicleIds;
-        }
-
-        public void setVehicleIds(ArrayList<Long> vehicleIds) {
-            this.vehicleIds = vehicleIds;
-        }
-
-        public void addVehicleId(Long vehicleId) {
-            this.vehicleIds.add(vehicleId);
-        }
+    // Save one new user that is not in the database
+    @PutMapping
+    public void insert(@RequestBody User user){
+        this.userRepository.insert(user);
     }
 
+    // Update an existing user in the database
+    @PostMapping
+    public void update(@RequestBody User user){
+        this.userRepository.save(user);
+    }
+
+    // Delete a given user from the database
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") String id){
+        this.userRepository.deleteById(id);
+    }
 }
+
+/*
+@GetMapping("/price/{maxPrice}")
+    public List<Hotel> getByPricePerNight(@PathVariable("maxPrice") int maxPrice){
+        List<Hotel> hotels = this.hotelRepository.findByPricePerNightLessThan(maxPrice);
+
+        return hotels;
+    }
+
+    @GetMapping("/address/{city}")
+    public List<Hotel> getByCity(@PathVariable("city") String city){
+        List<Hotel> hotels = this.hotelRepository.findByCity(city);
+
+        return hotels;
+    }
+
+    @GetMapping("/country/{country}")
+    public List<Hotel> getByCountry(@PathVariable("country") String country){
+        // create a query class (QHotel)
+        QHotel qHotel = new QHotel("hotel");
+
+        // using the query class we can create the filters
+        BooleanExpression filterByCountry = qHotel.address.country.eq(country);
+
+        // we can then pass the filters to the findAll() method
+        List<Hotel> hotels = (List<Hotel>) this.hotelRepository.findAll(filterByCountry);
+
+        return hotels;
+    }
+
+    @GetMapping("/recommended")
+    public List<Hotel> getRecommended(){
+        final int maxPrice = 100;
+        final int minRating = 7;
+
+        // create a query class (QHotel)
+        QHotel qHotel = new QHotel("hotel");
+
+        // using the query class we can create the filters
+        BooleanExpression filterByPrice = qHotel.pricePerNight.lt(maxPrice);
+        BooleanExpression filterByRating = qHotel.reviews.any().rating.gt(minRating);
+
+        // we can then pass the filters to the findAll() method
+        List<Hotel> hotels = (List<Hotel>) this.hotelRepository.findAll(filterByPrice.and(filterByRating));
+
+        return hotels;
+    }
+
+ */

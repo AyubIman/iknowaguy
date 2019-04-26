@@ -1,24 +1,21 @@
 package com.iknowaguy.models;
 
-import javax.persistence.*;
-        import java.util.ArrayList;
-        import java.util.HashSet;
-        import java.util.Objects;
-        import java.util.Set;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+
+@Document(collection = "User")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String firstName;
     private String lastName;
+    private List<Vehicle> vehicles;
 
-    //@OneToMany
-    private ArrayList<Long> vehicles = new ArrayList<>();
-
-    public User() {
+    public User(String ayub, String iman, Vehicle ford) {
     }
 
     public User(String firstName, String lastName) {
@@ -26,17 +23,17 @@ public class User {
         this.lastName = lastName;
     }
 
-    public User(String firstName, String lastName, ArrayList<Long> vehicles) {
+    public User(String firstName, String lastName, List<Vehicle> vehicles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.vehicles = vehicles;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -56,12 +53,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public ArrayList<Long> getVehicles() {
+    public List<Vehicle> getVehicles() {
         return vehicles;
     }
 
-    public void addVehicle(Long vehicle) {
-        this.vehicles.add(vehicle);
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     @Override
@@ -76,7 +73,7 @@ public class User {
     @Override
     public int hashCode() {
 
-        return id != null ? id.hashCode():0; //Objects.hash(id);
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
